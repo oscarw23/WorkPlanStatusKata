@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "eNpPiO2ZPlE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\oscar\\OneDrive\\Documentos\\Workspace\\ProyectoFormacion\\src\\WorkPlanStatusKata.Domain\\WorkPlanStatusKata.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oscar\\.nuget\\packages\\securitycodescan.vs2019\\5.6.7\\securitycodescan.vs2019.5.6.7.nupkg.sha512"
+  ],
+  "logs": []
+}
