@@ -21,6 +21,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - run: dotnet restore ${{ env.SOLUTION }}
       - run: dotnet format ${{ env.SOLUTION }} --verify-no-changes
+
   test:
     name: Unit tests + coverage
     needs: lint
@@ -42,7 +43,8 @@ jobs:
         with:
           name: coverage-report
           path: ./TestResults
-    security-gate:
+
+  security-gate:
     name: Security gate (SecurityCodeScan)
     needs: test
     runs-on: ubuntu-latest
