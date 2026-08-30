@@ -22,7 +22,7 @@ jobs:
       - run: dotnet restore ${{ env.SOLUTION }}
       - run: dotnet format ${{ env.SOLUTION }} --verify-no-changes
 
-   test:
+    test:
     name: Unit tests + coverage
     needs: lint
     runs-on: ubuntu-latest
