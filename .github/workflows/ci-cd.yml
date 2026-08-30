@@ -1,0 +1,62 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  SOLUTION: WorkPlanStatusKata.sln
+
+jobs:
+  lint:
+    name: Lint (dotnet format)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: dotnet restore ${{ env.SOLUTION }}
+      - run: dotnet format ${{ env.SOLUTION }} --verify-no-changes
+
+  test:
+    name: Unit tests + coverage
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: dotnet restore ${{ env.SOLUTION }}
+      - run: >
+          dotnet test ${{ env.SOLUTION }}
+          --configuration Release
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+      - name: Publicar cobertura como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./TestResults
+
+  security-gate:
+    name: Security gate (SecurityCodeScan)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: dotnet restore ${{ env.SOLUTION }}
+      # SecurityCodeScan.VS2019 ya está referenciado en Domain y Persistence (Fase 3).
+      # TreatWarningsAsErrors convierte cualquier warning SCSxxxx nuevo en build roto.
+      - run: >
+          dotnet build ${{ env.SOLUTION }}
+          --configuration Release
+          /p:TreatWarningsAsErrors=true
+          /warnaserror
