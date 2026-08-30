@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WorkPlanStatusKata.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fc04f7b1dabef77792b1e6c6ed2c2ed74e43d7a")]
 [assembly: System.Reflection.AssemblyProductAttribute("WorkPlanStatusKata.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WorkPlanStatusKata.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
